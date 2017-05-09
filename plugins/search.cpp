@@ -575,7 +575,7 @@ protected:
 
         for (size_t i = 0; i < saved_indexes.size(); i++)
         {
-            int adjusted_item_index = i;
+            size_t adjusted_item_index = i;
             if (list_has_been_sorted)
             {
                 for (size_t j = 0; j < this->primary_list->size(); j++)

@@ -545,7 +545,7 @@ public:
     }
     virtual void after_mouse_event(start_sitest* screen)
     {
-        if (enabler->mouse_lbut != prev_lbut)
+        if (!!enabler->mouse_lbut != prev_lbut)
         {
             lbut_press(screen, enabler->mouse_lbut, gps->mouse_x, gps->mouse_y);
         }

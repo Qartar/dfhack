@@ -30,8 +30,8 @@ REQUIRE_GLOBAL(cursor);
 command_result cleanmap (color_ostream &out, bool snow, bool mud, bool item_spatter)
 {
     // Invoked from clean(), already suspended
-    int num_blocks = 0, blocks_total = world->map.map_blocks.size();
-    for (int i = 0; i < blocks_total; i++)
+    size_t num_blocks = 0, blocks_total = world->map.map_blocks.size();
+    for (size_t i = 0; i < blocks_total; i++)
     {
         df::map_block *block = world->map.map_blocks[i];
         bool cleaned = false;
@@ -79,14 +79,14 @@ command_result cleanmap (color_ostream &out, bool snow, bool mud, bool item_spat
     }
 
     if(num_blocks)
-        out.print("Cleaned %d of %d map blocks.\n", num_blocks, blocks_total);
+        out.print("Cleaned %zu of %zu map blocks.\n", num_blocks, blocks_total);
     return CR_OK;
 }
 
 command_result cleanitems (color_ostream &out)
 {
     // Invoked from clean(), already suspended
-    int cleaned_items = 0, cleaned_total = 0;
+    size_t cleaned_items = 0, cleaned_total = 0;
     for (size_t i = 0; i < world->items.all.size(); i++)
     {
         // currently, all item classes extend item_actual, so this should be safe
@@ -108,14 +108,14 @@ command_result cleanitems (color_ostream &out)
         }
     }
     if (cleaned_total)
-        out.print("Removed %d contaminants from %d items.\n", cleaned_total, cleaned_items);
+        out.print("Removed %zu contaminants from %zu items.\n", cleaned_total, cleaned_items);
     return CR_OK;
 }
 
 command_result cleanunits (color_ostream &out)
 {
     // Invoked from clean(), already suspended
-    int cleaned_units = 0, cleaned_total = 0;
+    size_t cleaned_units = 0, cleaned_total = 0;
     for (size_t i = 0; i < world->units.all.size(); i++)
     {
         df::unit *unit = world->units.all[i];
@@ -129,14 +129,14 @@ command_result cleanunits (color_ostream &out)
         }
     }
     if (cleaned_total)
-        out.print("Removed %d contaminants from %d creatures.\n", cleaned_total, cleaned_units);
+        out.print("Removed %zu contaminants from %zu creatures.\n", cleaned_total, cleaned_units);
     return CR_OK;
 }
 
 command_result cleanplants (color_ostream &out)
 {
     // Invoked from clean(), already suspended
-    int cleaned_plants = 0, cleaned_total = 0;
+    size_t cleaned_plants = 0, cleaned_total = 0;
     for (size_t i = 0; i < world->plants.all.size(); i++)
     {
         df::plant *plant = world->plants.all[i];
@@ -151,7 +151,7 @@ command_result cleanplants (color_ostream &out)
         }
     }
     if (cleaned_total)
-        out.print("Removed %d contaminants from %d plants.\n", cleaned_total, cleaned_plants);
+        out.print("Removed %zu contaminants from %zu plants.\n", cleaned_total, cleaned_plants);
     return CR_OK;
 }
 

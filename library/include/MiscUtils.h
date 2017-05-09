@@ -166,7 +166,7 @@ inline bool vector_contains(const std::vector<CT*> &vec, FT CT::*field, FT key)
 }
 
 template<typename T>
-inline T vector_get(const std::vector<T> &vec, unsigned idx, const T &defval = T())
+inline T vector_get(const std::vector<T> &vec, size_t idx, const T &defval = T())
 {
     if (idx < vec.size())
         return vec[idx];
@@ -175,13 +175,13 @@ inline T vector_get(const std::vector<T> &vec, unsigned idx, const T &defval = T
 }
 
 template<typename T>
-inline void vector_insert_at(std::vector<T> &vec, unsigned idx, const T &val)
+inline void vector_insert_at(std::vector<T> &vec, size_t idx, const T &val)
 {
     vec.insert(vec.begin()+idx, val);
 }
 
 template<typename T>
-inline void vector_erase_at(std::vector<T> &vec, unsigned idx)
+inline void vector_erase_at(std::vector<T> &vec, size_t idx)
 {
     if (idx < vec.size())
         vec.erase(vec.begin()+idx);

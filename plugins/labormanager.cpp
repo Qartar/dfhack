@@ -2579,7 +2579,7 @@ public:
 
         to_assign.clear();
 
-        int av = available_dwarfs.size();
+        size_t av = available_dwarfs.size();
 
         while (!pq.empty() && av > 0)
         {

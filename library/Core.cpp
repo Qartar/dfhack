@@ -1022,7 +1022,7 @@ command_result Core::runCommand(color_ostream &con, const std::string &first_, v
                 std::string keystr = parts[1];
                 if (parts[0] == "set")
                     ClearKeyBindings(keystr);
-                for (int i = parts.size()-1; i >= 2; i--)
+                for (size_t i = parts.size()-1; i >= 2; i--)
                 {
                     if (!AddKeyBinding(keystr, parts[i])) {
                         con.printerr("Invalid key spec: %s\n", keystr.c_str());
@@ -2404,15 +2404,15 @@ bool Core::SelectHotkey(int sym, int modifiers)
 
         // Check the internal keybindings
         std::vector<KeyBinding> &bindings = key_bindings[sym];
-        for (int i = bindings.size()-1; i >= 0; --i) {
-            if (bindings[i].modifiers != modifiers)
+        for (size_t i = bindings.size(); i > 0; --i) {
+            if (bindings[i-1].modifiers != modifiers)
                 continue;
-            if (!bindings[i].focus.empty() &&
-                !prefix_matches(bindings[i].focus, Gui::getFocusString(screen)))
+            if (!bindings[i-1].focus.empty() &&
+                !prefix_matches(bindings[i-1].focus, Gui::getFocusString(screen)))
                 continue;
-            if (!plug_mgr->CanInvokeHotkey(bindings[i].command[0], screen))
+            if (!plug_mgr->CanInvokeHotkey(bindings[i-1].command[0], screen))
                 continue;
-            cmd = bindings[i].cmdline;
+            cmd = bindings[i-1].cmdline;
             break;
         }
 
@@ -2502,9 +2502,9 @@ bool Core::ClearKeyBindings(std::string keyspec)
     tthread::lock_guard<tthread::mutex> lock(*HotkeyMutex);
 
     std::vector<KeyBinding> &bindings = key_bindings[sym];
-    for (int i = bindings.size()-1; i >= 0; --i) {
-        if (bindings[i].modifiers == mod && prefix_matches(focus, bindings[i].focus))
-            bindings.erase(bindings.begin()+i);
+    for (size_t i = bindings.size(); i > 0; --i) {
+        if (bindings[i-1].modifiers == mod && prefix_matches(focus, bindings[i-1].focus))
+            bindings.erase(bindings.begin()+i-1);
     }
 
     return true;
@@ -2542,10 +2542,10 @@ bool Core::AddKeyBinding(std::string keyspec, std::string cmdline)
 
     // Don't add duplicates
     std::vector<KeyBinding> &bindings = key_bindings[sym];
-    for (int i = bindings.size()-1; i >= 0; --i) {
-        if (bindings[i].modifiers == binding.modifiers &&
-            bindings[i].cmdline == cmdline &&
-            bindings[i].focus == binding.focus)
+    for (size_t i = bindings.size(); i > 0; --i) {
+        if (bindings[i-1].modifiers == binding.modifiers &&
+            bindings[i-1].cmdline == cmdline &&
+            bindings[i-1].focus == binding.focus)
             return true;
     }
 
@@ -2565,14 +2565,14 @@ std::vector<std::string> Core::ListKeyBindings(std::string keyspec)
     tthread::lock_guard<tthread::mutex> lock(*HotkeyMutex);
 
     std::vector<KeyBinding> &bindings = key_bindings[sym];
-    for (int i = bindings.size()-1; i >= 0; --i) {
-        if (focus.size() && focus != bindings[i].focus)
+    for (size_t i = bindings.size(); i > 0; --i) {
+        if (focus.size() && focus != bindings[i-1].focus)
             continue;
-        if (bindings[i].modifiers == mod)
+        if (bindings[i-1].modifiers == mod)
         {
-            std::string cmd = bindings[i].cmdline;
-            if (!bindings[i].focus.empty())
-                cmd = "@" + bindings[i].focus + ": " + cmd;
+            std::string cmd = bindings[i-1].cmdline;
+            if (!bindings[i-1].focus.empty())
+                cmd = "@" + bindings[i-1].focus + ": " + cmd;
             rv.push_back(cmd);
         }
     }

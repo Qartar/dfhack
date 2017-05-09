@@ -130,7 +130,7 @@ std::vector<std::vector<std::string>> tokenizeFile(std::string filename) {
             fileTokens[y++][0] = line;
             continue;
         }
-        int start = 0;
+        size_t start = 0;
         auto nextInd = line.find(',');
         std::string curCell = line.substr(start,nextInd-start);
         do {
@@ -221,7 +221,7 @@ command_result fortplan(color_ostream &out, vector<string> & params) {
                     std::vector<std::string> curData;
                     if (dataIndex != layout[y][x].npos) {
                         curCode = layout[y][x].substr(0,dataIndex);
-                        int dataStart = dataIndex+1;
+                        size_t dataStart = dataIndex+1;
                         auto nextDataStart = layout[y][x].find(",",dataStart);
                         while (nextDataStart!=layout[y][x].npos) {
                             std::string nextData = layout[y][x].substr(dataStart,nextDataStart);

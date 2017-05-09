@@ -268,10 +268,10 @@ struct work_hook : df::building_workshopst{
         {
             if (!is_fully_built() || def->frames.size()==0)
                 return;
-            int frame=0;
+            size_t frame=0;
             if(!def->machine_timing)
             {
-                int frame_mod=def->frames.size()* def->frame_skip;
+                size_t frame_mod=def->frames.size()* def->frame_skip;
                 frame=(world->frame_counter % frame_mod)/def->frame_skip;
             }
             else

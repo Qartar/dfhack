@@ -167,7 +167,20 @@ inline string int_to_string(const int n)
     return static_cast<ostringstream*>( &(ostringstream() << n) )->str();
 }
 
+inline string size_to_string(const size_t n)
+{
+    return static_cast<ostringstream*>( &(ostringstream() << n) )->str();
+}
+
 static void set_to_limit(int &value, const int maximum, const int min = 0)
+{
+    if (value < min)
+        value = min;
+    else if (value > maximum)
+        value = maximum;
+}
+
+static void set_to_limit(size_t &value, const size_t maximum, const size_t min = 0)
 {
     if (value < min)
         value = min;
@@ -197,7 +210,7 @@ inline void paint_text(const UIColor color, const int &x, const int &y, const st
     Screen::paintString(Screen::Pen(' ', color, background), x, y, text);
 }
 
-static string pad_string(string text, const int size, const bool front = true, const bool trim = false)
+static string pad_string(string text, const size_t size, const bool front = true, const bool trim = false)
 {
     if (text.length() > size)
     {

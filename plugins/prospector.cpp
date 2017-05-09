@@ -381,7 +381,7 @@ bool estimate_materials(color_ostream &out, EmbarkTileLayout &tile, MatMap &laye
     }
 
     // soil depth increases by 1 every 5 levels below 150
-    unsigned nlayers = std::min<unsigned>(16, geo_biome->layers.size());
+    size_t nlayers = std::min<size_t>(16, geo_biome->layers.size());
     int soil_size = 0;
 
     for (unsigned i = 0; i < nlayers; i++)
@@ -396,7 +396,7 @@ bool estimate_materials(color_ostream &out, EmbarkTileLayout &tile, MatMap &laye
     int layer_shift[16];
     int cur_shift = tile.elevation+soil_erosion-1;
 
-    for (unsigned i = 0; i < nlayers; i++)
+    for (size_t i = 0; i < nlayers; i++)
     {
         auto layer = geo_biome->layers[i];
         layer_shift[i] = cur_shift;

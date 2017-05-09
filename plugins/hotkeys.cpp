@@ -42,7 +42,7 @@ static void add_binding_if_valid(string sym, string cmdline, df::viewscreen *scr
     current_bindings[sym] = cmdline;
     sorted_keys.push_back(sym);
     string keyspec = sym + "@dfhack/viewscreen_hotkeys";
-    Core::getInstance().AddKeyBinding(keyspec, "hotkeys invoke " + int_to_string(sorted_keys.size() - 1));
+    Core::getInstance().AddKeyBinding(keyspec, "hotkeys invoke " + size_to_string(sorted_keys.size() - 1));
 }
 
 static void find_active_keybindings(df::viewscreen *screen)
@@ -281,7 +281,7 @@ private:
         if (str.length() > width)
         {
             auto cut_space = str.rfind(' ', width-1);
-            int excess_start;
+            size_t excess_start;
             if (cut_space == string::npos)
             {
                 cut_space = width-1;

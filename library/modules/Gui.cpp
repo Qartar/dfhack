@@ -115,7 +115,7 @@ static std::string getNameChunk(virtual_identity *id, int start, int end)
     if (!id)
         return "UNKNOWN";
     const char *name = id->getName();
-    int len = strlen(name);
+    size_t len = strlen(name);
     if (len > start + end)
         return std::string(name+start, len-start-end);
     else
@@ -1226,7 +1226,7 @@ DFHACK_EXPORT int Gui::makeAnnouncement(df::announcement_type type, df::announce
         display = flags.bits.D_DISPLAY;
 
     // Generate the report objects
-    int report_idx = world->status.reports.size();
+    size_t report_idx = world->status.reports.size();
     bool continued = false;
 
     while (!message.empty())
@@ -1243,7 +1243,7 @@ DFHACK_EXPORT int Gui::makeAnnouncement(df::announcement_type type, df::announce
 
         new_rep->flags.bits.continuation = continued;
 
-        int size = std::min(message.size(), (size_t)73);
+        size_t size = std::min(message.size(), (size_t)73);
         new_rep->text = message.substr(0, size);
         message = message.substr(size);
 

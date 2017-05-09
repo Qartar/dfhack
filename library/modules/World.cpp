@@ -436,9 +436,9 @@ bool World::deletePersistentTilemask(const PersistentDataItem &item, df::map_blo
         return false;
 
     bool found = false;
-    for (int i = block->block_events.size()-1; i >= 0; i--)
+    for (size_t i = block->block_events.size(); i > 0; i--)
     {
-        auto ev = block->block_events[i];
+        auto ev = block->block_events[i-1];
         if (ev->getType() != block_square_event_type::world_construction)
             continue;
         auto wcsev = strict_virtual_cast<df::block_square_event_world_constructionst>(ev);
@@ -446,7 +446,7 @@ bool World::deletePersistentTilemask(const PersistentDataItem &item, df::map_blo
             continue;
 
         delete wcsev;
-        vector_erase_at(block->block_events, i);
+        vector_erase_at(block->block_events, i-1);
         found = true;
     }
 

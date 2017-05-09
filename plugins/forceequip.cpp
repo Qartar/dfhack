@@ -564,11 +564,11 @@ command_result df_forceequip(color_ostream &out, vector <string> & parameters)
     MapCache mc;
 
     // iterate over all items, process those where pos == pos_cursor
-    int itemsEquipped = 0;
-    int itemsFound = 0;
-    int numItems = world->items.all.size();        // Normally, we iterate through EVERY ITEM in the world.  This is expensive, but currently necessary.
+    size_t itemsEquipped = 0;
+    size_t itemsFound = 0;
+    size_t numItems = world->items.all.size();        // Normally, we iterate through EVERY ITEM in the world.  This is expensive, but currently necessary.
     if (selected) { numItems = 1; }                // If the user wants to process only the selected item, then the loop is trivialized (only one pass is needed).
-    for(int i=0; i< numItems; i++)
+    for(size_t i=0; i< numItems; i++)
     {
         df::item * currentItem;
 

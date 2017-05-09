@@ -320,13 +320,6 @@ enum altsort_mode {
     ALTSORT_MAX
 };
 
-string itos (int n)
-{
-    stringstream ss;
-    ss << n;
-    return ss.str();
-}
-
 bool descending;
 df::job_skill sort_skill;
 df::unit_labor sort_labor;
@@ -605,15 +598,15 @@ namespace unit_ops {
     }
     #define id_getter(id) \
     string get_##id(UnitInfo *u) \
-        { return itos(u->ids.id); }
+        { return int_to_string(u->ids.id); }
     id_getter(list_id);
     id_getter(list_id_prof);
     id_getter(list_id_group);
     #undef id_getter
     string get_unit_id(UnitInfo *u)
-        { return itos(u->unit->id); }
+        { return int_to_string(u->unit->id); }
     string get_age(UnitInfo *u)
-        { return itos((int)Units::getAge(u->unit)); }
+        { return int_to_string((int)Units::getAge(u->unit)); }
     void set_nickname(UnitInfo *u, std::string nick)
     {
         Units::setNickname(u->unit, nick);
@@ -897,7 +890,7 @@ public:
             }
             menu_options.display(true);
         }
-        OutputString(COLOR_LIGHTGREEN, x, y, itos(units.size()));
+        OutputString(COLOR_LIGHTGREEN, x, y, size_to_string(units.size()));
         OutputString(COLOR_GREY, x, y, string(" ") + (units.size() > 1 ? "dwarves" : "dwarf") + " selected: ");
         int max_x = gps->dimx - 2;
         size_t i = 0;
@@ -915,7 +908,7 @@ public:
         }
         else
         {
-            OutputString(COLOR_GREY, x, y, "and " + itos(units.size() - i) + " more");
+            OutputString(COLOR_GREY, x, y, "and " + size_to_string(units.size() - i) + " more");
         }
         x = 2; y += 2;
         if (cur_page == NICKNAME || cur_page == PROFNAME)
@@ -1044,7 +1037,7 @@ public:
             return;
         }
         menu_options.display(true);
-        OutputString(COLOR_LIGHTGREEN, x, y, itos(units.size()));
+        OutputString(COLOR_LIGHTGREEN, x, y, size_to_string(units.size()));
         OutputString(COLOR_GREY, x, y, string(" ") + (units.size() > 1 ? "dwarves" : "dwarf") + " selected: ");
         int max_x = gps->dimx - 2;
         size_t i = 0;
@@ -1062,7 +1055,7 @@ public:
         }
         else
         {
-            OutputString(COLOR_GREY, x, y, "and " + itos(units.size() - i) + " more");
+            OutputString(COLOR_GREY, x, y, "and " + size_to_string(units.size() - i) + " more");
         }
     }
 protected:
@@ -1128,7 +1121,7 @@ protected:
 
 viewscreen_unitlaborsst::viewscreen_unitlaborsst(vector<df::unit*> &src, int cursor_pos)
 {
-    std::map<df::unit*,int> active_idx;
+    std::map<df::unit*,size_t> active_idx;
     auto &active = world->units.active;
     for (size_t i = 0; i < active.size(); i++)
         active_idx[active[i]] = i;

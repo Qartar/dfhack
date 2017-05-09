@@ -536,9 +536,9 @@ bool Items::setOwner(df::item *item, df::unit *unit)
 {
     CHECK_NULL_POINTER(item);
 
-    for (int i = item->general_refs.size()-1; i >= 0; i--)
+    for (size_t i = item->general_refs.size(); i > 0; i--)
     {
-        df::general_ref *ref = item->general_refs[i];
+        df::general_ref *ref = item->general_refs[i-1];
 
         if (ref->getType() != general_ref_type::UNIT_ITEMOWNER)
             continue;
@@ -552,7 +552,7 @@ bool Items::setOwner(df::item *item, df::unit *unit)
         }
 
         delete ref;
-        vector_erase_at(item->general_refs, i);
+        vector_erase_at(item->general_refs, i-1);
     }
 
     item->flags.bits.owned = false;
@@ -754,9 +754,9 @@ static bool detachItem(MapExtras::MapCache &mc, df::item *item)
     {
         bool found = false;
 
-        for (int i = item->general_refs.size()-1; i >= 0; i--)
+        for (size_t i = item->general_refs.size(); i > 0; i--)
         {
-            df::general_ref *ref = item->general_refs[i];
+            df::general_ref *ref = item->general_refs[i-1];
 
             switch (ref->getType())
             {
@@ -786,15 +786,15 @@ static bool detachItem(MapExtras::MapCache &mc, df::item *item)
                          vector_get(world->units.active, *ui_selected_unit) == unit))
                         return false;
 
-                    for (int i = unit->inventory.size()-1; i >= 0; i--)
+                    for (size_t j = unit->inventory.size(); j > 0; j--)
                     {
-                        df::unit_inventory_item *inv_item = unit->inventory[i];
+                        df::unit_inventory_item *inv_item = unit->inventory[j-1];
                         if (inv_item->item != item)
                             continue;
 
                         resetUnitInvFlags(unit, inv_item);
 
-                        vector_erase_at(unit->inventory, i);
+                        vector_erase_at(unit->inventory, j-1);
                         delete inv_item;
                     }
                 }
@@ -805,7 +805,7 @@ static bool detachItem(MapExtras::MapCache &mc, df::item *item)
             }
 
             found = true;
-            vector_erase_at(item->general_refs, i);
+            vector_erase_at(item->general_refs, i-1);
             delete ref;
         }
 
@@ -938,7 +938,7 @@ bool DFHack::Items::moveToInventory(
     CHECK_NULL_POINTER(unit);
     CHECK_NULL_POINTER(unit->body.body_plan);
     CHECK_INVALID_ARGUMENT(is_valid_enum_item(mode));
-    int body_plan_size = unit->body.body_plan->body_parts.size();
+    size_t body_plan_size = unit->body.body_plan->body_parts.size();
     CHECK_INVALID_ARGUMENT(body_part < 0 || body_part <= body_plan_size);
 
     auto holderReference = df::allocate<df::general_ref_unit_holderst>();

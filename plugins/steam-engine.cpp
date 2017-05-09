@@ -411,9 +411,9 @@ struct workshop_hook : df::building_workshopst {
         df::item_liquid_miscst *first = NULL;
         *count = 0;
 
-        for (int i = contained_items.size()-1; i >= 0; i--)
+        for (size_t i = contained_items.size(); i > 0; i--)
         {
-            auto item = contained_items[i];
+            auto item = contained_items[i-1];
             if (item->use_mode != 0)
                 continue;
 
@@ -453,9 +453,9 @@ struct workshop_hook : df::building_workshopst {
     {
         int cnt = 0;
 
-        for (int i = contained_items.size()-1; i >= 0; i--)
+        for (size_t i = contained_items.size(); i > 0; i--)
         {
-            auto item = contained_items[i];
+            auto item = contained_items[i-1];
             if (item->use_mode != 0 || !item->item->flags.bits.in_building)
                 continue;
 
@@ -492,13 +492,13 @@ struct workshop_hook : df::building_workshopst {
     {
         int coeffs[3] = { 0, power, count };
 
-        for (int i = contained_items.size()-1; i >= 0; i--)
+        for (size_t i = contained_items.size(); i > 0; i--)
         {
-            int type = classify_component(contained_items[i]);
+            int type = classify_component(contained_items[i-1]);
             if (type < 0)
                 continue;
 
-            df::item *item = contained_items[i]->item;
+            df::item *item = contained_items[i-1]->item;
             int melt_temp = item->getMeltingPoint();
             if (coeffs[type] == 0 || melt_temp >= engine->wear_temp)
                 continue;

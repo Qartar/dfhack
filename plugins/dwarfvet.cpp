@@ -501,8 +501,8 @@ void tickHandler(color_ostream& out, void* data) {
         }
     }
 
-    int count_of_hospitals = hospitals_on_map.size();
-    int hospitals_cached = animal_hospital_zones.size();
+    size_t count_of_hospitals = hospitals_on_map.size();
+    size_t hospitals_cached = animal_hospital_zones.size();
     //out.print ("count_of_Hospitals: %d, hospitals_cached: %d\n", count_of_hospitals, hospitals_cached);
     // It's possible our hospital cache is empty, if so, simply copy it, and jump to the main logic
     if (!hospitals_cached && count_of_hospitals) {

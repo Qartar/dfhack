@@ -624,7 +624,7 @@ static int meta_displace(lua_State *state)
     }
 
     int index = lua_tointeger(state, 2);
-    int step = has_step ? lua_tointeger(state, 3) : 1;
+    size_t step = has_step ? lua_tointeger(state, 3) : 1;
 
     // Two special cases: nil and lightuserdata for NULL and void*
     if (lua_isnil(state, 1))
@@ -850,7 +850,7 @@ static int meta_assign(lua_State *state)
                 /*
                  * no assign && nil or missing resize field => 1-based lua array
                  */
-                int size = lua_rawlen(state, 2);
+                size_t size = lua_rawlen(state, 2);
 
                 lua_pop(state, 1);
                 invoke_resize(state, 1, size);

@@ -915,7 +915,7 @@ bool Units::isOwnRace(df::unit* unit)
 }
 
 // get race name by id or unit pointer
-string Units::getRaceNameById(int32_t id)
+string Units::getRaceNameById(size_t id)
 {
     df::creature_raw *raw = world->raws.creatures.all[id];
     if (raw)
@@ -929,7 +929,7 @@ string Units::getRaceName(df::unit* unit)
 }
 
 // get plural of race name (used for display in autobutcher UI and for sorting the watchlist)
-string Units::getRaceNamePluralById(int32_t id)
+string Units::getRaceNamePluralById(size_t id)
 {
     df::creature_raw *raw = world->raws.creatures.all[id];
     if (raw)
@@ -943,7 +943,7 @@ string Units::getRaceNamePlural(df::unit* unit)
     return getRaceNamePluralById(unit->race);
 }
 
-string Units::getRaceBabyNameById(int32_t id)
+string Units::getRaceBabyNameById(size_t id)
 {
     df::creature_raw *raw = world->raws.creatures.all[id];
     if (raw)
@@ -957,7 +957,7 @@ string Units::getRaceBabyName(df::unit* unit)
     return getRaceBabyNameById(unit->race);
 }
 
-string Units::getRaceChildNameById(int32_t id)
+string Units::getRaceChildNameById(size_t id)
 {
     df::creature_raw *raw = world->raws.creatures.all[id];
     if (raw)

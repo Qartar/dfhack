@@ -706,7 +706,7 @@ struct mousequery_hook : public df::viewscreen_dwarfmodest
         auto bld = Buildings::findAtTile(mpos);
         auto ilist = get_items_at(mpos, false);
 
-        int look_list = ulist.size() + ((bld) ? 1 : 0) + ilist.size() + 1;
+        size_t look_list = ulist.size() + ((bld) ? 1 : 0) + ilist.size() + 1;
         set_to_limit(look_list, 8);
         int disp_y = gps->dimy - look_list - 2;
 

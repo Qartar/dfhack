@@ -143,8 +143,8 @@ bool DFHack::operator== (const df::job_item &a, const df::job_item &b)
           CMP(contains.size())))
         return false;
 
-    for (int i = a.contains.size()-1; i >= 0; i--)
-        if (a.contains[i] != b.contains[i])
+    for (size_t i = a.contains.size(); i > 0; i--)
+        if (a.contains[i-1] != b.contains[i-1])
             return false;
 
     return true;
@@ -162,8 +162,8 @@ bool DFHack::operator== (const df::job &a, const df::job &b)
           CMP(reaction_name) && CMP(job_items.size())))
         return false;
 
-    for (int i = a.job_items.size()-1; i >= 0; i--)
-        if (!(*a.job_items[i] == *b.job_items[i]))
+    for (size_t i = a.job_items.size(); i > 0; i--)
+        if (!(*a.job_items[i-1] == *b.job_items[i-1]))
             return false;
 
     return true;
@@ -311,14 +311,14 @@ void DFHack::Job::disconnectJobItem(df::job *job, df::job_item_ref *ref) {
     if (!item) return;
 
     //Work backward through the specific refs & remove/delete all specific refs to this job
-    int refCount = item->specific_refs.size();
+    size_t refCount = item->specific_refs.size();
     bool stillHasJobs = false;
-    for(int refIndex = refCount-1; refIndex >= 0; refIndex--) {
-        auto ref = item->specific_refs[refIndex];
+    for(size_t refIndex = refCount; refIndex > 0; refIndex--) {
+        auto ref = item->specific_refs[refIndex-1];
 
         if (ref->type == df::specific_ref_type::JOB) {
             if (ref->job == job) {
-                vector_erase_at(item->specific_refs, refIndex);
+                vector_erase_at(item->specific_refs, refIndex-1);
                 delete ref;
             } else {
                 stillHasJobs = true;

@@ -30,13 +30,13 @@ struct advmode_contained_hook : df::viewscreen_layer_unit_actionst {
                 auto preagent = cur_reaction->reagents[reagent];
                 reagent_amnt_left = preagent->quantity;
 
-                for (int i = held_items.size()-1; i >= 0; i--)
+                for (size_t i = held_items.size(); i > 0; i--)
                 {
-                    if (!preagent->matchesRoot(held_items[i], cur_reaction->index))
+                    if (!preagent->matchesRoot(held_items[i-1], cur_reaction->index))
                         continue;
-                    if (linear_index(sel_items, held_items[i]) >= 0)
+                    if (linear_index(sel_items, held_items[i-1]) >= 0)
                         continue;
-                    choice_items.push_back(held_items[i]);
+                    choice_items.push_back(held_items[i-1]);
                 }
 
                 layer_objects[6]->setListLength(choice_items.size());

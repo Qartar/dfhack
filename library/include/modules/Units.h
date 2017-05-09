@@ -245,13 +245,13 @@ DFHACK_EXPORT bool isOwnCiv(df::unit* unit);
 DFHACK_EXPORT bool isOwnGroup(df::unit* unit);
 DFHACK_EXPORT bool isOwnRace(df::unit* unit);
 
-DFHACK_EXPORT std::string getRaceNameById(int32_t race_id);
+DFHACK_EXPORT std::string getRaceNameById(size_t race_id);
 DFHACK_EXPORT std::string getRaceName(df::unit* unit);
-DFHACK_EXPORT std::string getRaceNamePluralById(int32_t race_id);
+DFHACK_EXPORT std::string getRaceNamePluralById(size_t race_id);
 DFHACK_EXPORT std::string getRaceNamePlural(df::unit* unit);
-DFHACK_EXPORT std::string getRaceBabyNameById(int32_t race_id);
+DFHACK_EXPORT std::string getRaceBabyNameById(size_t race_id);
 DFHACK_EXPORT std::string getRaceBabyName(df::unit* unit);
-DFHACK_EXPORT std::string getRaceChildNameById(int32_t race_id);
+DFHACK_EXPORT std::string getRaceChildNameById(size_t race_id);
 DFHACK_EXPORT std::string getRaceChildName(df::unit* unit);
 
 DFHACK_EXPORT bool isBaby(df::unit* unit);

@@ -573,12 +573,12 @@ static void init_state(color_ostream &out)
     std::vector<PersistentDataItem> items;
     World::GetPersistentData(&items, "workflow/constraints");
 
-    for (int i = items.size()-1; i >= 0; i--) {
-        if (get_constraint(out, items[i].val(), &items[i]))
+    for (size_t i = items.size(); i > 0; i--) {
+        if (get_constraint(out, items[i-1].val(), &items[i-1]))
             continue;
 
-        out.printerr("Lost constraint %s\n", items[i].val().c_str());
-        World::DeletePersistentData(items[i]);
+        out.printerr("Lost constraint %s\n", items[i-1].val().c_str());
+        World::DeletePersistentData(items[i-1]);
     }
 
     last_tick_frame_count = world->frame_counter;
@@ -719,9 +719,9 @@ static void update_job_data(color_ostream &out)
 
 static void recover_jobs(color_ostream &out)
 {
-    for (int i = pending_recover.size()-1; i >= 0; i--)
-        if (recover_job(out, pending_recover[i]))
-            vector_erase_at(pending_recover, i);
+    for (size_t i = pending_recover.size(); i > 0; i--)
+        if (recover_job(out, pending_recover[i-1]))
+            vector_erase_at(pending_recover, i-1);
 }
 
 static void process_constraints(color_ostream &out);
@@ -740,7 +740,7 @@ DFhackCExport command_result plugin_onupdate(color_ostream &out)
     last_tick_frame_count = world->frame_counter;
 
     // Proceed every in-game half-day, or when jobs to recover changed
-    static unsigned last_rlen = 0;
+    static size_t last_rlen = 0;
     bool check_time = (world->frame_counter - last_frame_count) >= DAY_TICKS/2;
 
     if (pending_recover.size() != last_rlen || check_time)

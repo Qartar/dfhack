@@ -489,7 +489,7 @@ static void read_field(lua_State *state, const struct_field_info *field, void *p
     {
         case struct_field_info::STATIC_STRING:
         {
-            int len = strnlen((char*)ptr, field->count);
+            size_t len = strnlen((char*)ptr, field->count);
             lua_pushlstring(state, (char*)ptr, len);
             return;
         }

@@ -224,7 +224,7 @@ static command_result job_material_in_build(color_ostream &out, MaterialInfo &ne
 
     for (size_t i = 0; i < size; i++)
     {
-        int idx = (base + i) % size;
+        size_t idx = (base + i) % size;
 
         if (build_choice_matches(req, sel->choices[idx], new_mat, false))
         {

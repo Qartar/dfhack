@@ -189,7 +189,6 @@ bool Buildings::Read (const uint32_t index, t_building & building)
 bool Buildings::ReadCustomWorkshopTypes(map <uint32_t, string> & btypes)
 {
     vector <building_def *> & bld_def = world->raws.buildings.all;
-    uint32_t size = bld_def.size();
     btypes.clear();
 
     for (auto iter = bld_def.begin(); iter != bld_def.end();iter++)
@@ -1154,13 +1153,13 @@ bool Buildings::deconstruct(df::building *bld)
         world->update_selected_building = true;
     }
 
-    for (int i = ui_look_list->items.size()-1; i >= 0; i--)
+    for (size_t i = ui_look_list->items.size(); i > 0; i--)
     {
-        auto item = ui_look_list->items[i];
+        auto item = ui_look_list->items[i-1];
         if (item->type == df::ui_look_list::T_items::Building &&
             item->building == bld)
         {
-            vector_erase_at(ui_look_list->items, i);
+            vector_erase_at(ui_look_list->items, i-1);
             delete item;
         }
     }

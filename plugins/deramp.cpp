@@ -36,15 +36,15 @@ command_result df_deramp (color_ostream &out, vector <string> & parameters)
     int count = 0;
     int countbad = 0;
 
-    int num_blocks = 0, blocks_total = world->map.map_blocks.size();
-    for (int i = 0; i < blocks_total; i++)
+    size_t num_blocks = 0, blocks_total = world->map.map_blocks.size();
+    for (size_t i = 0; i < blocks_total; i++)
     {
         df::map_block *block = world->map.map_blocks[i];
         df::map_block *above = Maps::getTileBlock(block->map_pos + df::coord(0,0,1));
 
-        for (int x = 0; x < 16; x++)
+        for (size_t x = 0; x < 16; x++)
         {
-            for (int y = 0; y < 16; y++)
+            for (size_t y = 0; y < 16; y++)
             {
                 df::tiletype oldT = block->tiletype[x][y];
                 if ((tileShape(oldT) == tiletype_shape::RAMP) &&

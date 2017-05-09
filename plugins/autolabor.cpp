@@ -1084,7 +1084,7 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
         }
     }
 
-    int n_dwarfs = dwarfs.size();
+    size_t n_dwarfs = dwarfs.size();
 
     if (n_dwarfs == 0)
         return CR_OK;
@@ -1093,7 +1093,7 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
 
     // Find total skill and highest skill for each dwarf. More skilled dwarves shouldn't be used for minor tasks.
 
-    for (int dwarf = 0; dwarf < n_dwarfs; dwarf++)
+    for (size_t dwarf = 0; dwarf < n_dwarfs; dwarf++)
     {
         if (dwarfs[dwarf]->status.souls.size() <= 0)
             continue;
@@ -1139,7 +1139,7 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
 
         // identify dwarfs who are needed for meetings and mark them for exclusion
 
-        for (int i = 0; i < ui->activities.size(); ++i)
+        for (size_t i = 0; i < ui->activities.size(); ++i)
         {
             df::activity_info *act = ui->activities[i];
             if (!act) continue;
@@ -1177,7 +1177,7 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
 
     // Calculate a base penalty for using each dwarf for a task he isn't good at.
 
-    for (int dwarf = 0; dwarf < n_dwarfs; dwarf++)
+    for (size_t dwarf = 0; dwarf < n_dwarfs; dwarf++)
     {
         dwarf_info[dwarf].mastery_penalty -= 40 * dwarf_info[dwarf].highest_skill;
         dwarf_info[dwarf].mastery_penalty -= 10 * dwarf_info[dwarf].total_skill;
@@ -1199,7 +1199,7 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
     state_count.clear();
     state_count.resize(NUM_STATE);
 
-    for (int dwarf = 0; dwarf < n_dwarfs; dwarf++)
+    for (size_t dwarf = 0; dwarf < n_dwarfs; dwarf++)
     {
         bool is_on_break = false;
 
@@ -1297,8 +1297,8 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
     if (num_haulers < 1)
         num_haulers = 1;
 
-    std::vector<int> hauler_ids;
-    for (int dwarf = 0; dwarf < n_dwarfs; dwarf++)
+    std::vector<size_t> hauler_ids;
+    for (size_t dwarf = 0; dwarf < n_dwarfs; dwarf++)
     {
         if ((dwarf_info[dwarf].trader && trader_requested) ||
             dwarf_info[dwarf].diplomacy)
@@ -1334,11 +1334,11 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
         if (labor_infos[labor].mode() != HAULERS)
             continue;
 
-        for (int i = 0; i < num_haulers; i++)
+        for (size_t i = 0; i < num_haulers; i++)
         {
             assert(i < hauler_ids.size());
 
-            int dwarf = hauler_ids[i];
+            size_t dwarf = hauler_ids[i];
 
             assert(dwarf >= 0);
             assert(dwarf < n_dwarfs);
@@ -1352,11 +1352,11 @@ DFhackCExport command_result plugin_onupdate ( color_ostream &out )
                 out.print("Dwarf %i \"%s\" assigned %s: hauler\n", dwarf, dwarfs[dwarf]->name.first_name.c_str(), ENUM_KEY_STR(unit_labor, labor).c_str());
         }
 
-        for (int i = num_haulers; i < hauler_ids.size(); i++)
+        for (size_t i = num_haulers; i < hauler_ids.size(); i++)
         {
             assert(i < hauler_ids.size());
 
-            int dwarf = hauler_ids[i];
+            size_t dwarf = hauler_ids[i];
 
             assert(dwarf >= 0);
             assert(dwarf < n_dwarfs);
@@ -1374,7 +1374,7 @@ void print_labor (df::unit_labor labor, color_ostream &out)
 {
     string labor_name = ENUM_KEY_STR(unit_labor, labor);
     out << labor_name << ": ";
-    for (int i = 0; i < 20 - (int)labor_name.length(); i++)
+    for (size_t i = 0; i < 20 - labor_name.length(); i++)
         out << ' ';
     if (labor_infos[labor].mode() == DISABLE)
         out << "disabled" << endl;

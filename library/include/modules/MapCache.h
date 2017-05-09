@@ -604,7 +604,7 @@ class DFHACK_EXPORT MapCache
     uint32_t maxZ() { return z_max; }
 
     size_t getBiomeCount() { return biomes.size(); }
-    const BiomeInfo &getBiomeByIndex(unsigned idx) {
+    const BiomeInfo &getBiomeByIndex(size_t idx) {
         return (idx < biomes.size()) ? biomes[idx] : biome_stub;
     }
 

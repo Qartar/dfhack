@@ -85,8 +85,8 @@ namespace Random
         }
 
         // Two exact replicas of functions in DF code
-        int32_t df_trandom(uint32_t max=2147483647LU);
-        int32_t df_loadtrandom(uint32_t max=2147483647LU);
+        int32_t df_trandom(size_t max=2147483647LU);
+        int32_t df_loadtrandom(size_t max=2147483647LU);
 
         template<class T>
         void unitvector(T *p, int size);

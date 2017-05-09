@@ -66,9 +66,9 @@ bool DFHack::hasEnding (std::string const &fullString, std::string const &ending
 
 df::general_ref *DFHack::findRef(std::vector<df::general_ref*> &vec, df::general_ref_type type)
 {
-    for (int i = vec.size()-1; i >= 0; i--)
+    for (size_t i = vec.size(); i > 0; i--)
     {
-        df::general_ref *ref = vec[i];
+        df::general_ref *ref = vec[i-1];
         if (ref->getType() == type)
             return ref;
     }
@@ -78,13 +78,13 @@ df::general_ref *DFHack::findRef(std::vector<df::general_ref*> &vec, df::general
 
 bool DFHack::removeRef(std::vector<df::general_ref*> &vec, df::general_ref_type type, int id)
 {
-    for (int i = vec.size()-1; i >= 0; i--)
+    for (size_t i = vec.size(); i > 0; i--)
     {
-        df::general_ref *ref = vec[i];
+        df::general_ref *ref = vec[i-1];
         if (ref->getType() != type || ref->getID() != id)
             continue;
 
-        vector_erase_at(vec, i);
+        vector_erase_at(vec, i-1);
         delete ref;
         return true;
     }
@@ -112,9 +112,9 @@ df::unit *DFHack::findUnitRef(std::vector<df::general_ref*> &vec, df::general_re
 
 df::specific_ref *DFHack::findRef(std::vector<df::specific_ref*> &vec, df::specific_ref_type type)
 {
-    for (int i = vec.size()-1; i >= 0; i--)
+    for (size_t i = vec.size(); i > 0; i--)
     {
-        df::specific_ref *ref = vec[i];
+        df::specific_ref *ref = vec[i-1];
         if (ref->type == type)
             return ref;
     }
@@ -124,13 +124,13 @@ df::specific_ref *DFHack::findRef(std::vector<df::specific_ref*> &vec, df::speci
 
 bool DFHack::removeRef(std::vector<df::specific_ref*> &vec, df::specific_ref_type type, void *ptr)
 {
-    for (int i = vec.size()-1; i >= 0; i--)
+    for (size_t i = vec.size(); i > 0; i--)
     {
-        df::specific_ref *ref = vec[i];
+        df::specific_ref *ref = vec[i-1];
         if (ref->type != type || ref->object != ptr)
             continue;
 
-        vector_erase_at(vec, i);
+        vector_erase_at(vec, i-1);
         delete ref;
         return true;
     }

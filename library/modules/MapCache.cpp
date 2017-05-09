@@ -524,9 +524,9 @@ void MapExtras::Block::WriteTiles(TileInfo *tiles)
     {
         df::tiletype (*newtiles)[16] = (tiles->con_info ? tiles->con_info->tiles : tiles->base_tiles);
 
-        for (int i = block->block_events.size()-1; i >= 0; i--)
+        for (size_t i = block->block_events.size(); i > 0; i--)
         {
-            auto event = block->block_events[i];
+            auto event = block->block_events[i-1];
             auto ice = strict_virtual_cast<df::block_square_event_frozen_liquidst>(event);
             if (!ice)
                 continue;
@@ -632,9 +632,9 @@ void MapExtras::Block::WriteVeins(TileInfo *tiles, BasematInfo *bmats)
     }
 
     // Adjust existing veins
-    for (int i = block->block_events.size()-1; i >= 0; i--)
+    for (size_t i = block->block_events.size(); i > 0; i--)
     {
-        auto event = block->block_events[i];
+        auto event = block->block_events[i-1];
         auto vein = strict_virtual_cast<df::block_square_event_mineralst>(event);
         if (!vein)
             continue;
@@ -658,7 +658,7 @@ void MapExtras::Block::WriteVeins(TileInfo *tiles, BasematInfo *bmats)
         // Delete if became empty
         if (!vein->tile_bitmask.has_assignments())
         {
-            vector_erase_at(block->block_events, i);
+            vector_erase_at(block->block_events, i-1);
             delete vein;
         }
     }

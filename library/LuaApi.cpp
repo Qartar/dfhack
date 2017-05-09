@@ -1193,11 +1193,11 @@ static int dfhack_random_init(lua_State *L)
             data.push_back(lua_tounsigned(L, 2));
         else if (lua_istable(L, 2))
         {
-            int cnt = lua_rawlen(L, 2);
+            size_t cnt = lua_rawlen(L, 2);
             if (cnt <= 0)
                 luaL_argerror(L, 2, "empty list in dfhack.random.init");
 
-            for (int i = 1; i <= cnt; i++)
+            for (size_t i = 1; i <= cnt; i++)
             {
                 lua_rawgeti(L, 2, i);
                 if (!lua_isnumber(L, -1))
@@ -2163,10 +2163,10 @@ static int screen_doSimulateInput(lua_State *L)
     if (!screen)
         luaL_argerror(L, 1, "NULL screen");
 
-    int sz = lua_rawlen(L, 2);
+    size_t sz = lua_rawlen(L, 2);
     std::set<df::interface_key> keys;
 
-    for (int j = 1; j <= sz; j++)
+    for (size_t j = 1; j <= sz; j++)
     {
         lua_rawgeti(L, 2, j);
         keys.insert((df::interface_key)lua_tointeger(L, -1));

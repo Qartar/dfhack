@@ -123,8 +123,12 @@ static int get_max_history()
 
 static int getPercentage(const int n, const int d)
 {
-    return static_cast<int>(
-        static_cast<float>(n) / static_cast<float>(d) * 100.0);
+    return 100 * n / d;
+}
+
+static size_t getPercentage(const size_t n, const size_t d)
+{
+    return 100 * n / d;
 }
 
 static string getUnitName(df::unit * unit)
@@ -400,7 +404,7 @@ public:
 
     string getActivityItem(activity_type activity, size_t value)
     {
-        return pad_string(int_to_string(value), 3) + " " + getActivityLabel(activity);
+        return pad_string(size_to_string(value), 3) + " " + getActivityLabel(activity);
     }
 
     void feed(set<df::interface_key> *input)
@@ -497,7 +501,7 @@ public:
         OutputHotkeyString(x, y, "Leave", "Esc");
 
         x += 13;
-        string window_label = "Window Months: " + int_to_string(window_days / min_window);
+        string window_label = "Window Months: " + size_to_string(window_days / min_window);
         OutputHotkeyString(x, y, window_label.c_str(), "*");
 
         ++y;
@@ -959,7 +963,7 @@ public:
     {
         auto average = getPercentage(getFortActivityCount(activity), fort_activity_count);
         auto label = getActivityLabel(activity);
-        auto result = pad_string(int_to_string(average), 3) + " " + label;
+        auto result = pad_string(size_to_string(average), 3) + " " + label;
 
         return result;
     }
@@ -967,7 +971,7 @@ public:
     string getDwarfAverage(df::unit *unit, const size_t value)
     {
         auto label = getUnitName(unit);
-        auto result = pad_string(int_to_string(value), 3) + " " + label;
+        auto result = pad_string(size_to_string(value), 3) + " " + label;
 
         return result;
     }
@@ -975,7 +979,7 @@ public:
     string getBreakdownAverage(activity_type activity, const size_t value)
     {
         auto label = getActivityLabel(activity);
-        auto result = pad_string(int_to_string(value), 3) + " " + label;
+        auto result = pad_string(size_to_string(value), 3) + " " + label;
 
         return result;
     }
@@ -1106,7 +1110,7 @@ public:
         OutputHotkeyString(x, y, "Leave", "Esc");
 
         x += 13;
-        string window_label = "Window Months: " + int_to_string(window_days / min_window);
+        string window_label = "Window Months: " + size_to_string(window_days / min_window);
         OutputHotkeyString(x, y, window_label.c_str(), "*");
 
         ++y;
@@ -1377,7 +1381,7 @@ public:
             auto pref_index = rev_it->first;
             preferences_store[pref_index].makeLabel();
 
-            string label = pad_string(int_to_string(rev_it->second), 3);
+            string label = pad_string(size_to_string(rev_it->second), 3);
             label += " ";
             label += preferences_store[pref_index].label;
             ListEntry<size_t> elem(label, pref_index, "", getItemColor(preferences_store[pref_index].pref.type));

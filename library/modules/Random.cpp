@@ -106,7 +106,7 @@ void MersenneRNG::init(const uint32_t *pseed, unsigned cnt, int twist_cnt)
     prefill(cnt, twist_cnt);
 }
 
-int32_t MersenneRNG::df_trandom(uint32_t max)
+int32_t MersenneRNG::df_trandom(size_t max)
 {
     if(max<=1)return 0;
     uint32_t seed=random();
@@ -116,7 +116,7 @@ int32_t MersenneRNG::df_trandom(uint32_t max)
     return((int32_t)seed);
 }
 
-int32_t MersenneRNG::df_loadtrandom(uint32_t max)
+int32_t MersenneRNG::df_loadtrandom(size_t max)
 {
     uint32_t seed=random();
     seed=seed%max;

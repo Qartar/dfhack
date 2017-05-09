@@ -76,7 +76,7 @@ static void mark_all_in_stockpiles(vector<PersistentStockpileInfo> &stockpiles)
     }
 
     if (marked_count)
-        Gui::showAnnouncement("Marked " + int_to_string(marked_count) + " items to dump", COLOR_GREEN, false);
+        Gui::showAnnouncement("Marked " + size_to_string(marked_count) + " items to dump", COLOR_GREEN, false);
 }
 
 class StockpileMonitor
